@@ -1,0 +1,12 @@
+services:
+  # usado para desarrollo local
+  db:
+    container_name: db-postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

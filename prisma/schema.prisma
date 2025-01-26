@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String      @id @default(uuid())
+  sku         String      @unique
+  name        String
+  description String?
+  category    String
+  price       Decimal
+  inventories Inventory[]
+  movements   Movement[]
+
+  @@index([category])
+  @@index([name])
+  @@index([price])
+  @@map("product")
+}
+
+model Inventory {
+  id        String @id @default(uuid())
+  storeId   String @map("store_id")
+  productSku String @map("product_sku")
+  quantity  Int
+  minStock  Int    @map("min_stock") @default(1)
+  product Product @relation(fields: [productSku], references: [sku])
+
+  @@unique([storeId, productSku]) // Composite unique key
+  @@map("inventory")
+}
+
+model Movement {
+  id            String   @id @default(uuid())
+  productSku    String   @map("product_sku")
+  sourceStoreId String?   @map("source_store_id") 
+  targetStoreId String?   @map("target_store_id") 
+  quantity      Int
+  type          Type
+  timestamp     DateTime @default(now())
+  product Product @relation(fields: [productSku], references: [sku])
+  
+
+  @@map("movement")
+}
+
+enum Type {
+  IN
+  OUT
+  TRANSFER
+
+  @@map("type")
+}
