@@ -211,9 +211,9 @@ rds_instance() {
       --publicly-accessible \
       --backup-retention-period 7 \
       --preferred-backup-window "03:00-04:00" \
-      --copy-tags-to-snapshot true \
-      --deletion-protection true \
-      --auto-minor-version-upgrade true > /dev/null
+      --copy-tags-to-snapshot \
+      --deletion-protection \
+      --auto-minor-version-upgrade > /dev/null
 
     aws ssm put-parameter --region="$AWS_REGION" --name "/$NAME/DB_USERNAME" --type "SecureString" --value "$DB_PASSWORD" --overwrite > /dev/null
     aws ssm put-parameter --region="$AWS_REGION" --name "/$NAME/DB_PASSWORD" --type "SecureString" --value "$DB_PASSWORD" --overwrite > /dev/null
