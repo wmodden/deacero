@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "469b92cf-0764-440c-8df3-f853c8038556",
+		"name": "deacero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10295365"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/product?minStock=10",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "minStock",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by SKU",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/product/DEACERO-001"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ASIENTO\",\n    \"sku\": \"AS-010\",\n    \"price\": 1000,\n    \"category\": \"SUPPLIES\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/product"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product by SKU",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sku\": \"MAN-001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/product/DEACERO-001"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product by SKU",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{URL}}/product/MAN-001"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stock",
+			"item": [
+				{
+					"name": "stores",
+					"item": [
+						{
+							"name": "List stock per store",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{URL}}/stores/32f96887-771b-4528-9891-3d09544bd262/inventory"
+							},
+							"response": []
+						},
+						{
+							"name": "List Stores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{URL}}/stores"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "inventory",
+					"item": [
+						{
+							"name": "Transfer inventory",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sku\": \"DEACERO-004\",\n    \"targetStoreId\": \"MTY-02\",\n    \"quantity\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/inventory/transfer?type=IN",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"inventory",
+										"transfer"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "IN"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inventory alerts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{URL}}/inventory/alerts"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
